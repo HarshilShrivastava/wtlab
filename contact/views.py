@@ -17,6 +17,11 @@ def Createmessage(request):
         serializer=queryserializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            
-            print(serializer.data)
-    return Response("HI")
+            data['status']=200
+            data['message']="sucessfully sent "
+
+            return Response(data)
+        else:
+            data['status']=400
+            data['message']=serializer.error
+            return Response(data)
